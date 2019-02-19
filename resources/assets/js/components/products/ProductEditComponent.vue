@@ -37,7 +37,7 @@
                     <input type="text" v-validate="'required'" name="product_sku" :class="{'form-control': true, 'is-danger': errors.has('product_sku') }" v-model="product.product_sku" class="form-control" />
                     <span v-show="errors.has('product_sku')" class="help is-danger">{{ errors.first('product_sku') }}</span>
                  </div>
-                <button type="submit" class="btn btn-primary">Create Product</button>
+                <button type="submit" class="btn btn-primary">Update Product</button>
             </form>
         </div>
         </div>
@@ -66,6 +66,7 @@ Vue.use(VeeValidate,config);
 Vue.use(FormError);
 
 export default {
+    props:['id'],
     data(){
         return {
             product : {
@@ -76,6 +77,7 @@ export default {
             serverErrors: [], 
         }
     },
+    
     methods : {
           onFileChange : function(){
               this.product.product_image = this.$refs.product_file.files[0];
@@ -102,22 +104,34 @@ export default {
                     this.formData.append('sale_price', this.product.sale_price);
                     this.formData.append('stock', this.product.stock);
                     this.formData.append('product_sku', this.product.product_sku);
+                    this.formData.append('_method', 'PUT');
                     let _this = this;
-                    axios.post('/products',this.formData,{
+                    axios.post('/products/'+this.$route.params.id,this.formData,{
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
-                        }).then(response => {
-                                 // clear previous form errors
-                                _this.$set('serverErrors', '');
-                                _this.$router.push({ name: 'products' })
-                    }).catch(function (error) {
-                        // handle error
-                        _this.$set('serverErrors', error.errors);
-                    });
+                        }).then(
+                            (response) => { // clear previous form errors
+                                _this.$set('errors', '');
+                                _this.$router.push({ name: 'products' }) },
+                                (error) => { // handle error
+                            _this.$set('serverErrors', error.errors); });
                 }
             });
+        },
+        getProduct : function(){
+            let _this = this;
+           if(this.$route.params.id){
+                axios.get('/products/'+ this.$route.params.id).then(function(response){
+                    _this.product = response.data.product;
+                })
+           }else{
+               this.$router.push({ name: 'products' })
+           }
         }
+    },
+     beforeMount() {
+       this.getProduct()
     }
 }
 </script>

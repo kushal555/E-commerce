@@ -32,11 +32,7 @@
             }
         },
         mounted() {
-            axios.get('/dashboard', {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                }
-            })
+            axios.get('/dashboard')
             .then(response => {
                 this.data = response.data.data
             }).catch(error => {

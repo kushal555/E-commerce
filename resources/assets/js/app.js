@@ -18,8 +18,12 @@ window.Vue = require('vue');
 import router from './routes.js';
 import AppComponent from './components/AppComponent'
 import configuration from './env.js'
+// importing the helper
+import interceptorsSetup from './interceptors'
 
 axios.defaults.baseURL = configuration.api_url+configuration.api_version
+// and running it somewhere here
+interceptorsSetup()
 
 const app = new Vue({
     components: { AppComponent },

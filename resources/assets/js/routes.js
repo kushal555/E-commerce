@@ -8,6 +8,7 @@ import LoginComponent from './components/LoginComponent'
 import LogoutComponent from './components/LogoutComponent'
 import ProductIndexComponent from './components/products/ProductIndexComponent'
 import ProductAddComponent from './components/products/ProductAddComponent'
+import ProductEditComponent from './components/products/ProductEditComponent'
 import store from './store'
 
 const routes = [
@@ -31,6 +32,13 @@ const routes = [
         path: '/products/add',
         name: 'add-product',
         component: ProductAddComponent,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/products/edit/:id',
+        name: 'edit-product',
+        component: ProductEditComponent,
+        props: true,
         meta: { requiresAuth: true }
     },
     {

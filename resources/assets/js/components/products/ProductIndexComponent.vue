@@ -10,7 +10,15 @@
                 <img class="card-img-top" :src="'api/v1/load-image/'+product.product_image" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">{{product.product_name}}</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text">
+                    <span style="text-decoration: line-through;">{{product.regular_price}}</span>
+                    <span>{{product.sale_price}}</span>
+                    <div class="pull-right">
+                      <router-link :to="{name : 'edit-product',params: { id: product.id }}">
+                        Edit
+                      </router-link>
+                    </div>
+                  </p>
                 </div>
               </div>
               
@@ -42,10 +50,7 @@ export default {
       axios.get('products', {
         params: {
           page: this.page,
-        },
-        headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                }
+        }
       }).then(({ data }) => {
         if (data.data.length) {
           this.page += 1;
