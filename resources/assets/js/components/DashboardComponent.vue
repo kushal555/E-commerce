@@ -8,6 +8,10 @@
                     <router-link :to="{ name: 'logout' }">Logout</router-link>
                 </p>
 
+                <p>
+                    <router-link :to="{name : 'products'}" >Products</router-link>
+                </p>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Dashboard</div>
                     <div class="panel-body">
@@ -28,7 +32,7 @@
             }
         },
         mounted() {
-            axios.get('/api/dashboard', {
+            axios.get('/dashboard', {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }

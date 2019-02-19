@@ -2,7 +2,6 @@
     <div class="text-center form-wrapper">
 
         <form class="form-signin" v-on:submit.prevent="submitLogin">
-            <img class="mb-4" src="/img/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
             <label for="inputEmail" class="sr-only">Email address</label>
@@ -30,7 +29,7 @@
         methods: {
             submitLogin() {
                 this.loginError = false;
-                axios.post('/api/auth/login', {
+                axios.post('/auth/login', {
                     email: this.email,
                     password: this.password
                 }).then(response => {

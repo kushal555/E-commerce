@@ -8,7 +8,7 @@
         created() {
 
             if(localStorage.token) {
-                axios.get('/api/user', {
+                axios.get('/user', {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }

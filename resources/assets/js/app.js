@@ -17,6 +17,9 @@ window.Vue = require('vue');
 
 import router from './routes.js';
 import AppComponent from './components/AppComponent'
+import configuration from './env.js'
+
+axios.defaults.baseURL = configuration.api_url+configuration.api_version
 
 const app = new Vue({
     components: { AppComponent },

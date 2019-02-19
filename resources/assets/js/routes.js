@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 import DashboardComponent from './components/DashboardComponent'
 import LoginComponent from './components/LoginComponent'
 import LogoutComponent from './components/LogoutComponent'
+import ProductIndexComponent from './components/products/ProductIndexComponent'
 import store from './store'
 
 const routes = [
@@ -17,6 +18,12 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: DashboardComponent,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/products',
+        name: 'products',
+        component: ProductIndexComponent,
         meta: { requiresAuth: true }
     },
     {
