@@ -22,7 +22,7 @@ This source code contain the below functionalities
 1. If you have the below error while doing migration
    ![Database Error](https://github.com/kushal555/E-commerce/blob/master/Database-error.PNG)
    Just put the below code in your `AppServiceProvider.php` file
-   ```
+   ```php
    use Illuminate\Support\Facades\Schema;
 
    public function boot()
@@ -36,6 +36,16 @@ This source code contain the below functionalities
 1. Use `php artisan tinker` to create a test user:
 ```
 App\User::create(['name' => 'Test User', 'email' => 'test@email.com', 'password' => Hash::make('Password01')])
+```
+1. Setup the configuration file for VueJS, So just need to create `env.js` file inside the `resources/assets/js/` Directory. Put the below code in it and replace your folder name of project
+```javascript
+
+const configuration = {
+    api_url : "http://localhost/{project-directory-name}/public/api",
+    api_version : '/v1'
+}
+
+export default configuration
 ```
 
 ## Build
