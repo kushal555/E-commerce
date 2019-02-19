@@ -56850,30 +56850,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-2" },
-        [
-          _c("router-link", { attrs: { to: { name: "add-product" } } }, [
-            _vm._v("Add Product")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-8" },
-        [
-          _vm._l(_vm.list, function(product) {
-            return _c(
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c(
+          "div",
+          { staticClass: "col-md-2" },
+          [
+            _c("router-link", { attrs: { to: { name: "add-product" } } }, [
+              _vm._v("Add Product")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.list, function(product) {
+          return _c("div", { key: product.id, staticClass: "col-md-4" }, [
+            _c(
               "div",
-              {
-                key: product.id,
-                staticClass: "card",
-                staticStyle: { width: "18rem" }
-              },
+              { staticClass: "card", staticStyle: { width: "18rem" } },
               [
                 _c("img", {
                   staticClass: "card-img-top",
@@ -56925,25 +56921,25 @@ var render = function() {
                 ])
               ]
             )
-          }),
-          _vm._v(" "),
-          _c("infinite-loading", { on: { infinite: _vm.infiniteHandler } }, [
-            _c("div", { attrs: { slot: "waveDots" }, slot: "waveDots" }, [
-              _vm._v("Loading...")
-            ]),
-            _vm._v(" "),
-            _c("div", { attrs: { slot: "no-more" }, slot: "no-more" }, [
-              _vm._v("No more message")
-            ]),
-            _vm._v(" "),
-            _c("div", { attrs: { slot: "no-results" }, slot: "no-results" }, [
-              _vm._v("No results message")
-            ])
           ])
-        ],
-        2
-      )
-    ])
+        }),
+        _vm._v(" "),
+        _c("infinite-loading", { on: { infinite: _vm.infiniteHandler } }, [
+          _c("div", { attrs: { slot: "waveDots" }, slot: "waveDots" }, [
+            _vm._v("Loading...")
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "no-more" }, slot: "no-more" }, [
+            _vm._v("No more message")
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "no-results" }, slot: "no-results" }, [
+            _vm._v("No results message")
+          ])
+        ])
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
