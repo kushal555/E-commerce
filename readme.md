@@ -20,16 +20,16 @@ This source code contain the below functionalities
 1. Run `php artisan key:generate`
 1. Run `php artisan migrate`
 1. If you have the below error while doing migration
-![Database Error](Database-error.png "Database Error)
+   ![Database Error](https://github.com/kushal555/E-commerce/blob/master/Database-error.PNG)
    Just put the below code in your `AppServiceProvider.php` file
    ```
-use Illuminate\Support\Facades\Schema;
+   use Illuminate\Support\Facades\Schema;
 
-public function boot()
-{
-    Schema::defaultStringLength(191);
-}
-````
+   public function boot()
+   {
+       Schema::defaultStringLength(191);
+   }
+   ````
 1. Delete the all tables from Database and run again the command `php artisan migrate`
 1. Run `php artisan jwt:secret`
 1. Run `npm install`
