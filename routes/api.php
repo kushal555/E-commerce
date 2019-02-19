@@ -21,10 +21,12 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     });
     
     Route::group(['prefix' => 'auth'], function ($router) {
-        Route::post('login', 'AuthController@login');
-        Route::post('logout', 'AuthController@logout');
-        Route::post('refresh', 'AuthController@refresh');
-        Route::post('me', 'AuthController@me');
+        Route::post('login', 'AuthController@login')->name('api.name');
+        Route::post('logout', 'AuthController@logout')->name('api.logout');
+        Route::post('refresh', 'AuthController@refresh')->name('api.refresh');
+        Route::post('me', 'AuthController@me')->name('api.me');
     });
+    Route::apiResource('products', 'ProductsController')->middleware(['auth:api']);
+    Route::get('load-image/{filename}','ProductsController@loadImage');
     
 });

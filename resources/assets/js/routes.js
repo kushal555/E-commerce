@@ -7,6 +7,7 @@ import DashboardComponent from './components/DashboardComponent'
 import LoginComponent from './components/LoginComponent'
 import LogoutComponent from './components/LogoutComponent'
 import ProductIndexComponent from './components/products/ProductIndexComponent'
+import ProductAddComponent from './components/products/ProductAddComponent'
 import store from './store'
 
 const routes = [
@@ -24,6 +25,12 @@ const routes = [
         path: '/products',
         name: 'products',
         component: ProductIndexComponent,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/products/add',
+        name: 'add-product',
+        component: ProductAddComponent,
         meta: { requiresAuth: true }
     },
     {
