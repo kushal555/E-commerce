@@ -1,6 +1,5 @@
 <template>
     <div class="text-center form-wrapper">
-
         <form class="form-signin" v-on:submit.prevent="submitLogin">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
@@ -18,6 +17,11 @@
 
 <script>
     import store from '../store'
+    import Vue from 'vue'
+    import VueNoty from 'vuejs-noty'
+    import 'vuejs-noty/dist/vuejs-noty.css'
+
+    Vue.use(VueNoty)
     export default {
         data() {
             return {
@@ -37,8 +41,11 @@
                     store.commit('loginUser')
                     localStorage.setItem('token', response.data.access_token)
                     this.$router.push({ name: 'products' })
+                    // Success notification
+                    this.$noty.success("You successfully logged-in!")
                 }).catch(error => {
                     this.loginError = true
+                    this.$noty.error("Oops, you entered the wrong username/password!")
                 });
             }
         }

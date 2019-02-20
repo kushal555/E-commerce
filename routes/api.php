@@ -28,5 +28,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     });
     Route::apiResource('products', 'ProductsController')->middleware(['auth:api']);
     Route::get('load-image/{filename}','ProductsController@loadImage');
+    Route::post('products/import','ProductsController@importExcel')->middleware(['auth:api']);
+    Route::get('products/export/product','ProductsController@exportExcel')->middleware(['auth:api']);
     
 });

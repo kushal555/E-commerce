@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use Response;
 use Auth;
+use App\Imports\ProductsImport;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -148,8 +151,40 @@ class ProductsController extends Controller
         //
     }
 
+    /**
+     * Load the image through the URL
+     * @param string $fileName
+     * @return \Illuminate\Http\Response
+     */
     public function loadImage($fileName){
         $path = public_path().'/'.$this->uploadDirectory.$fileName;
         return Response::download($path);        
+    }
+
+    public function importExcel(Request $request){
+        
+        $file = $request->file('excel_file');
+
+        $validator = Validator::make($request->all(), [
+            'excel_file' => 'mimetypes:application/csv,application/excel,application/vnd.ms-excel,application/vnd.msexcel,text/csv,text/anytext,text/plain,text/x-c,text/comma-separated-values,inode/x-empty,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|required', // max 10000kb
+        ]);
+
+        if ($validator->fails()) {
+            // Redirect or return json to frontend with a helpful message to inform the user 
+            // that the provided file was not an adequate type
+            return response()->json(['error' => $validator->errors()->getMessages()], 400);
+        }
+        if($file){
+            Excel::import(new ProductsImport, request()->file('excel_file'));
+            return response()->json(['message'=> 'Data successfully imported'],200);
+        }else{
+            return response()->json(['message'=> 'file not found'],400);
+        }
+
+    }
+
+    public function exportExcel(){
+        // Store on default disk
+        return Excel::download(new ProductsExport, 'products.xlsx');    
     }
 }

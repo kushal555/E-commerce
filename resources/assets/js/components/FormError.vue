@@ -1,5 +1,5 @@
 <template>
-    <span class="help-block">
+    <span class="help-block is-danger">
         <slot></slot>
     </span>
 </template>

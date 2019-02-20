@@ -47,9 +47,10 @@
 <script>
 import Vue from 'vue'
 import VeeValidate from 'vee-validate';
-// import FormError component
-import FormError from '../FormError.vue';
+import VueNoty from 'vuejs-noty'
+import 'vuejs-noty/dist/vuejs-noty.css'
 
+Vue.use(VueNoty)
 const config = {
   aria: true,
   classNames: {},
@@ -63,7 +64,6 @@ const config = {
   validity: false
 };
 Vue.use(VeeValidate,config);
-Vue.use(FormError);
 
 export default {
     props:['id'],
@@ -110,12 +110,16 @@ export default {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
-                        }).then(
-                            (response) => { // clear previous form errors
-                                _this.$set('errors', '');
-                                _this.$router.push({ name: 'products' }) },
-                                (error) => { // handle error
-                            _this.$set('serverErrors', error.errors); });
+                        }).then(response => {
+                                 // clear previous form errors
+                                _this.serverErrors =  '';
+                                this.$noty.success("Your product updated!")
+                                _this.$router.push({ name: 'products' })
+                    }).catch(function (error) {
+                        // handle error
+                        this.$noty.error("Oops, something went wrong!")
+                        _this.serverErrors =  error.response.data.error;
+                    });
                 }
             });
         },

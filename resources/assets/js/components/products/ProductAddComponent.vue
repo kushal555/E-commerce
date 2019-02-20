@@ -11,6 +11,11 @@
                     <label for="sale_price">Product Name:</label>
                     <input v-validate="'required'" :class="{'form-control': true, 'is-danger': errors.has('product_name') }"  name="product_name" v-model="product.product_name" type="text" placeholder="Enter product name" >
                     <span v-show="errors.has('product_name')" class="help is-danger">{{ errors.first('product_name') }}</span>
+                    
+                    <span class="help is-danger" v-if="serverErrors.product_name">
+                        {{ serverErrors.product_name[0] }}
+                    </span>
+ 
                 </div>
                 <div class="form-group">
                     <label for="regular_price">Product Regular Price:</label>
@@ -26,6 +31,10 @@
                     <label for="product_image">Product Image:</label><br/>
                     <input type="file" ref="product_file" @change="onFileChange" />
                     <img :src="product_image" class="product-preview"  />
+                    
+                    <span class="help is-danger" v-if="serverErrors.product_image">
+                        {{ serverErrors.product_image[0] }}
+                    </span>
                 </div>
                 <div class="form-group">
                     <label>Product Stock</label>
@@ -47,8 +56,10 @@
 <script>
 import Vue from 'vue'
 import VeeValidate from 'vee-validate';
-// import FormError component
-import FormError from '../FormError.vue';
+import VueNoty from 'vuejs-noty'
+import 'vuejs-noty/dist/vuejs-noty.css'
+
+Vue.use(VueNoty)
 
 const config = {
   aria: true,
@@ -63,7 +74,6 @@ const config = {
   validity: false
 };
 Vue.use(VeeValidate,config);
-Vue.use(FormError);
 
 export default {
     data(){
@@ -109,11 +119,13 @@ export default {
                             }
                         }).then(response => {
                                  // clear previous form errors
-                                _this.$set('serverErrors', '');
+                                _this.serverErrors =  '';
+                                this.$noty.success("Your product created!")
                                 _this.$router.push({ name: 'products' })
                     }).catch(function (error) {
                         // handle error
-                        _this.$set('serverErrors', error.errors);
+                        this.$noty.error("Oops, something went wrong!")
+                        _this.serverErrors =  error.response.data.error;
                     });
                 }
             });
