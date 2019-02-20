@@ -51,4 +51,5 @@ export default configuration
 ## Build
 - Once you have made changes to the JavaScript or SCSS files you will want to run `npm run dev` or `npm run production`
 
-
+## Import
+- Please download the [sampleImport Template](https://github.com/kushal555/E-commerce/blob/master/ImportSample.xlsx) and put your data according to columns and try to upload products
